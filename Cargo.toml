@@ -15,8 +15,20 @@ bevy = { version = "0.14", default-features = false, features = [
     "bevy_ui",
     "bevy_winit",
     "png",
+    "webgl2",
+] }
+
+# Desktop-specific dependencies
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+bevy = { version = "0.14", default-features = false, features = [
     "x11",
 ] }
+
+# Web-specific dependencies  
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = "0.2"
+web-sys = "0.3"
+getrandom = { version = "0.2", features = ["js"] }
 
 # Fast compiles for development
 [profile.dev]
