@@ -21,9 +21,21 @@ A simple 2D game built with the Bevy game engine, featuring a player sprite that
 
 ## How to Run
 
+### Desktop
 ```bash
 cargo run
 ```
+
+### Web (GitHub Pages)
+The game is automatically deployed to GitHub Pages when changes are pushed to the main branch. You can play it at:
+`https://tleety.github.io/Chatgpt-test-bevy-game/`
+
+### Local Web Development
+Install [Trunk](https://trunkrs.dev/) and run:
+```bash
+trunk serve
+```
+Then open http://localhost:8080 in your browser.
 
 ## Controls
 
@@ -36,6 +48,8 @@ cargo run
 - Keyboard input handling
 - Simple movement system
 - Basic game loop with Bevy ECS
+- **Web deployment** - Playable in any modern web browser via GitHub Pages
+- Cross-platform support (Desktop and Web)
 
 ## Dependencies
 
