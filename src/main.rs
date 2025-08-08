@@ -26,7 +26,7 @@ fn setup(mut commands: Commands) {
     commands.spawn((
         SpriteBundle {
             sprite: Sprite {
-                color: Color::srgb(0.2, 0.7, 0.9),
+                color: Color::rgb(0.2, 0.7, 0.9),
                 custom_size: Some(Vec2::new(50.0, 50.0)),
                 ..default()
             },
@@ -41,7 +41,7 @@ fn setup(mut commands: Commands) {
     for i in 0..5 {
         commands.spawn(SpriteBundle {
             sprite: Sprite {
-                color: Color::srgb(0.8, 0.2, 0.3),
+                color: Color::rgb(0.8, 0.2, 0.3),
                 custom_size: Some(Vec2::new(40.0, 40.0)),
                 ..default()
             },

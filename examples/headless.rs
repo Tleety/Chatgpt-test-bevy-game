@@ -56,6 +56,6 @@ fn exit_after_time(time: Res<Time>, mut exit: EventWriter<bevy::app::AppExit>) {
     if time.elapsed_seconds() > 5.0 {
         println!("Headless simulation complete after 5 seconds!");
         println!("Movement system successfully demonstrated!");
-        exit.send(bevy::app::AppExit::Success);
+        exit.send(bevy::app::AppExit);
     }
 }
