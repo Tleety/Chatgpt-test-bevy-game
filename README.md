@@ -1,42 +1,27 @@
-# Bevy 2D Game Example
+# Bevy Web Game
 
-A simple 2D game built with the Bevy game engine, featuring a player sprite that can be controlled with keyboard input.
+This is a minimal [Bevy](https://bevyengine.org) game set up to run on the web via WebAssembly and serve through GitHub Pages.
 
-## Project Structure
+## Building
 
-```
-├── assets/           # Game assets
-│   ├── sprites/      # Sprite images
-│   ├── sounds/       # Audio files
-│   └── fonts/        # Font files
-├── src/
-│   ├── components/   # Game components
-│   ├── systems/      # Game systems
-│   ├── resources/    # Game resources
-│   ├── plugins/      # Game plugins
-│   ├── lib.rs        # Library code
-│   └── main.rs       # Entry point
-└── Cargo.toml        # Project configuration
-```
+1. Install the `wasm32-unknown-unknown` target:
+   ```bash
+   rustup target add wasm32-unknown-unknown
+   ```
+2. Install [Trunk](https://trunkrs.dev):
+   ```bash
+   cargo install trunk
+   ```
+3. Build the project:
+   ```bash
+   trunk build --release
+   ```
+   The generated site will be output to the `docs` directory which can be served with GitHub Pages.
 
-## How to Run
+## Running locally
 
 ```bash
-cargo run
+trunk serve --release
 ```
 
-## Controls
-
-- **WASD** or **Arrow Keys**: Move the player sprite
-- **ESC**: Exit the game
-
-## Features
-
-- 2D sprite rendering
-- Keyboard input handling
-- Simple movement system
-- Basic game loop with Bevy ECS
-
-## Dependencies
-
-- [Bevy](https://bevyengine.org/) - Game engine
+Then open <http://localhost:8080> in your browser to play the game.
