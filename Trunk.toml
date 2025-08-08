@@ -1,0 +1,13 @@
+[build]
+target = "index.html"
+release = true
+
+[build.rust]
+target = "wasm32-unknown-unknown"
+
+[build.rust.wasm-bindgen]
+demangle-name-section = true
+debug-info = false
+
+[env]
+RUSTFLAGS = "--cfg=wasm_js --cfg=web_sys_unstable_apis"

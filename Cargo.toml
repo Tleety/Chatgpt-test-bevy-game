@@ -8,15 +8,17 @@ authors = ["Your Name <your.email@example.com>"]
 [dependencies]
 bevy = { version = "0.14", default-features = false, features = [
     "bevy_asset",
-    "bevy_render",
+    "bevy_render", 
     "bevy_core_pipeline",
     "bevy_sprite",
     "bevy_text",
     "bevy_ui",
     "bevy_winit",
     "png",
-    "webgl2",
 ] }
+
+# Force getrandom 0.2 to avoid 0.3 conflicts with WASM
+getrandom = "0.2"
 
 # Desktop-specific dependencies
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]

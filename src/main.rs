@@ -2,35 +2,18 @@ use bevy::prelude::*;
 use bevy_game::{components::*, plugins::GamePlugin};
 
 fn main() {
-    let mut app = App::new();
-    
-    // Configure plugins based on target platform
-    #[cfg(target_arch = "wasm32")]
-    {
-        app.add_plugins(DefaultPlugins.set(WindowPlugin {
+    App::new()
+        .add_plugins(DefaultPlugins.set(WindowPlugin {
             primary_window: Some(Window {
                 title: "Bevy 2D Game Example".into(),
                 resolution: (800.0, 600.0).into(),
-                canvas: Some("#bevy".to_owned()),
+                // Prevent this from creating a new window on the web.
+                prevent_default_event_handling: false,
                 ..default()
             }),
             ..default()
-        }));
-    }
-    
-    #[cfg(not(target_arch = "wasm32"))]
-    {
-        app.add_plugins(DefaultPlugins.set(WindowPlugin {
-            primary_window: Some(Window {
-                title: "Bevy 2D Game Example".into(),
-                resolution: (800.0, 600.0).into(),
-                ..default()
-            }),
-            ..default()
-        }));
-    }
-    
-    app.add_plugins(GamePlugin)
+        }))
+        .add_plugins(GamePlugin)
         .add_systems(Startup, setup)
         .run();
 }

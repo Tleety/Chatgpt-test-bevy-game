@@ -29,31 +29,20 @@ jobs:
       with:
         targets: wasm32-unknown-unknown
         
-    - name: Install wasm-bindgen-cli
-      run: cargo install wasm-bindgen-cli
+    - name: Install trunk
+      uses: jetli/trunk-action@v0.4.0
+      with:
+        version: 'latest'
 
-    - name: Build for Web
-      env:
-        RUSTFLAGS: "--cfg=wasm_js --cfg=web_sys_unstable_apis"
-      run: cargo build --release --target wasm32-unknown-unknown
-
-    - name: Generate WASM bindings
+    - name: Create index.html for trunk
       run: |
-        wasm-bindgen --out-dir web/ --target web target/wasm32-unknown-unknown/release/bevy-game.wasm
-
-    - name: Create web directory and copy assets  
-      run: |
-        mkdir -p web/assets
-        cp -r assets/* web/assets/ || true
-        
-    - name: Create index.html
-      run: |
-        cat > web/index.html << 'EOF'
+        cat > index.html << 'EOF'
         <!DOCTYPE html>
         <html>
         <head>
             <meta charset="utf-8">
             <title>Bevy 2D Game</title>
+            <link data-trunk rel="rust" data-wasm-opt="z"/>
             <style>
                 body {
                     margin: 0;
@@ -73,15 +62,6 @@ jobs:
                     max-width: 100%;
                     max-height: 80vh;
                 }
-                #loading {
-                    text-align: center;
-                    margin-bottom: 20px;
-                }
-                #error {
-                    color: #ff6b6b;
-                    text-align: center;
-                    display: none;
-                }
                 #controls {
                     margin-top: 20px;
                     text-align: center;
@@ -91,37 +71,15 @@ jobs:
             </style>
         </head>
         <body>
-            <div id="loading">
-                <h2>Loading Bevy 2D Game...</h2>
-                <p>Please wait while the game loads.</p>
-            </div>
-            <div id="error">
-                <h2>Failed to load game</h2>
-                <p>Make sure WebAssembly is supported in your browser.</p>
-            </div>
-            <canvas id="bevy"></canvas>
             <div id="controls">
-                <p><strong>Controls:</strong> Use WASD or Arrow Keys to move the blue square! Press ESC to exit.</p>
+                <p><strong>Controls:</strong> Use WASD or Arrow Keys to move the blue square!</p>
             </div>
-            <script type="module">
-                import init from './bevy-game.js';
-                
-                async function run() {
-                    try {
-                        await init();
-                        document.getElementById('loading').style.display = 'none';
-                    } catch (error) {
-                        console.error('Failed to load WASM:', error);
-                        document.getElementById('loading').style.display = 'none';
-                        document.getElementById('error').style.display = 'block';
-                    }
-                }
-                
-                run();
-            </script>
         </body>
         </html>
         EOF
+
+    - name: Build with trunk
+      run: trunk build --release --public-url /Chatgpt-test-bevy-game/
 
     - name: Setup Pages
       uses: actions/configure-pages@v4
@@ -129,7 +87,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        path: ./web
+        path: ./dist
 
   deploy:
     environment:
