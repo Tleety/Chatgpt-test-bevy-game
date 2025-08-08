@@ -1,16 +1,10 @@
 use bevy::prelude::*;
 
-#[derive(Component)]
+#[derive(Component, Default)]
 pub struct Player;
 
-#[derive(Component)]
+#[derive(Component, Default)]
 pub struct Velocity {
     pub x: f32,
     pub y: f32,
-}
-
-impl Default for Velocity {
-    fn default() -> Self {
-        Self { x: 0.0, y: 0.0 }
-    }
 }

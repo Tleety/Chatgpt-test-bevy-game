@@ -6,29 +6,26 @@ description = "A 2D Bevy game example"
 authors = ["Your Name <your.email@example.com>"]
 build = "build.rs"
 
-# Base dependencies for all targets
 [dependencies]
 bevy = { version = "0.13", default-features = false, features = [
     "bevy_asset",
-    "bevy_render", 
+    "bevy_render",
     "bevy_core_pipeline",
     "bevy_sprite",
     "bevy_text",
     "bevy_ui",
     "bevy_winit",
     "png",
+    "x11",
 ] }
 
 # Desktop-specific dependencies
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
-bevy = { version = "0.13", default-features = false, features = ["x11"] }
 
 # Web-specific dependencies  
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 wasm-bindgen = "0.2"
 web-sys = "0.3"
-bevy = { version = "0.13", default-features = false, features = ["webgl2"] }
-# Use getrandom 0.3 with proper WASM support
 getrandom = { version = "0.3", features = ["wasm_js"] }
 
 # Fast compiles for development
