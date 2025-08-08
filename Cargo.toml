@@ -5,6 +5,7 @@ edition = "2021"
 description = "A 2D Bevy game example"
 authors = ["Your Name <your.email@example.com>"]
 
+# Base dependencies for all targets
 [dependencies]
 bevy = { version = "0.14", default-features = false, features = [
     "bevy_asset",
@@ -15,21 +16,19 @@ bevy = { version = "0.14", default-features = false, features = [
     "bevy_ui",
     "bevy_winit",
     "png",
-    "x11",
 ] }
 
-# Force getrandom to use 0.2 to avoid WASM compatibility issues
-getrandom = "0.2"
+# Desktop-specific dependencies
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+bevy = { version = "0.14", default-features = false, features = ["x11"] }
 
 # Web-specific dependencies  
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 wasm-bindgen = "0.2"
 web-sys = "0.3"
-getrandom = { version = "0.2", features = ["js"] }
-
-# Non-web specific dependencies (for getrandom compatibility)
-[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
-getrandom = "0.2"
+bevy = { version = "0.14", default-features = false, features = ["webgl2"] }
+# Use getrandom 0.3 with proper WASM support
+getrandom = { version = "0.3", features = ["wasm_js"] }
 
 # Fast compiles for development
 [profile.dev]
